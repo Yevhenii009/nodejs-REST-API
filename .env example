@@ -1,2 +1,2 @@
-DB_HOST=mongodb+srv://User1:qFjadYaPw6KmRVQL@cluster0.jojjtyg.mongodb.net/db-contacts?retryWrites=true&w=majority
+DB_HOST=
 PORT=
