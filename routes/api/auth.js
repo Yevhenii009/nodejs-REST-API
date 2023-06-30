@@ -1,18 +1,27 @@
-const express = require('express');
-const ctrl = require('../../controllers');
-const schemas = require('../../schemas');
-const { validateBody, authenticate } = require('../../middlewares');
-const router = express.Router();
+const express = require("express");
+const ctrl = require("../../controllers/auth");
+const {
+  validateBody,
+  autenticate,
+  isValidIdSubscription,
+} = require("../../decorators");
+const { schemas } = require("../../models/users");
 
-router.post('/register', validateBody(schemas.registerSchema), ctrl.register);
-router.post('/login', validateBody(schemas.loginSchema), ctrl.login);
-router.get('/current', authenticate, ctrl.getCurrent);
-router.post('/logout', authenticate, ctrl.logout);
+const router = express.Router();
+router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
+router.get("/current", autenticate, ctrl.getCurrent);
 router.patch(
-  '/',
-  authenticate,
-  validateBody(schemas.subscriptionSchema),
-  ctrl.updateSubcription
+  "/:subscription",
+  autenticate,
+  isValidIdSubscription,
+  ctrl.updateUser
+);
+router.post(
+  "/logout",
+  autenticate,
+  validateBody(schemas.loginSchema),
+  ctrl.logout
 );
 
 module.exports = router;
