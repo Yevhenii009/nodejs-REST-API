@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const contactsController = require("../../controllers/contacts-controllers");
+const { schemas } = require("../../models/contacts");
+const { validateBody, isValidId, autenticate } = require("../../decorators");
+
 router.get('/', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
@@ -13,12 +17,6 @@ router.post('/', async (req, res, next) => {
 router.delete('/:contactId', async (req, res, next) => {
   res.json({ message: 'template message' })
 })
-
-const express = require("express");
-// const router = express.Router();
-const contactsController = require("../../controllers/contacts-controllers");
-const { schemas } = require("../../models/contact");
-const { validateBody, isValidId, autenticate } = require("../../decorators");
 
 router.get("/", autenticate, contactsController.getAllContacts);
 
